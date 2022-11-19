@@ -30,8 +30,3 @@
 *.exe
 *.out
 *.app
-
-# Libraries and uncontrolled projects
-libraries/Adafruit_BusIO
-libraries/Adafruit_GFX_Library
-libraries/Adafruit_SSD1306

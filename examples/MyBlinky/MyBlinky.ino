@@ -1,4 +1,4 @@
-#include "timer.hpp"
+#include <Clock.hpp>
 
 const uint8_t ledPin = LED_BUILTIN;
 uint8_t ledState = LOW;
@@ -18,4 +18,3 @@ void loop() {
         digitalWrite(ledPin, ledState);
     }
 }
-
