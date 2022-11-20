@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef MAPPER_H
-#define MAPPER_H
+#ifndef MAPPER_HPP
+#define MAPPER_HPP
 
 #include <Scheduler.hpp>
 

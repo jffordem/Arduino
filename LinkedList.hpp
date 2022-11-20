@@ -76,6 +76,37 @@ public:
     void add(T item) {
         _list = new ListPair<T>(item, _list);
     }
+    void clear() {
+        while (_list) {
+            ListPair<T> *temp = _list;
+            _list = _list->cdr();
+            delete temp;
+        }
+    }
+    void remove(T item) {
+        ListPair<T> *temp = _list;
+         NULL;
+        _list = NULL;
+        while (temp) {
+            T value = temp->car();
+            ListPair<T> *dead = temp;
+            temp = temp->cdr();
+            delete dead;
+            if (value != item) {
+                add(value);
+            }
+        }
+    }
+    bool contains(T item) const {
+        ListPair<T> *temp = _list;
+        while (temp) {
+            if (temp->car() == item) {
+                return true;
+            }
+            temp = temp->cdr();
+        }
+        return false;
+    }
     ListPair<T> *head() {
         return _list;
     }

@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef LED_H
-#define LED_H
+#ifndef LED_HPP
+#define LED_HPP
 
 #include <Scheduler.hpp>
 #include <PinIO.hpp>

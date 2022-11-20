@@ -45,12 +45,17 @@ void digitalWrite(int i, bool j) { }
 int analogRead(int i) { return 0; }
 void analogWrite(int i, int j) { }
 void strcpy(char*, const char*) { }
+#define DEC 1
 class Outputter {
 public:
 	void print(const char*) { }
 	void print(long) { }
+	void print(long,short) {}
+	void print(short,short) {}
+	void print(bool,short) {}
 	void print(short) { }
 	void println(const char*) { }
+	void println() { }
 	void println(long) { }
 	void println(short) { }
 };

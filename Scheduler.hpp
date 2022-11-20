@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SCHEDULER_H
-#define SCHEDULER_H
+#ifndef SCHEDULER_HPP
+#define SCHEDULER_HPP
 
 /*
 MainSchedule provides a single pollable object for all pollers.

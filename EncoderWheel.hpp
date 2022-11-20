@@ -22,13 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef ENCODERWHEEL_H
-#define ENCODERWHEEL_H
+#ifndef ENCODERWHEEL_HPP
+#define ENCODERWHEEL_HPP
 
 #include <Scheduler.hpp>
 #include <PinIO.hpp>
 #include <EdgeDetector.hpp>
 #include <Mapper.hpp>
+#include <SerialPlot.hpp>
 
 /*
 EncoderWheel and EncoderControl allow the encoder wheel to be an input to
@@ -80,6 +81,10 @@ public:
 		}
 	}
 	void onFallingEdge() { }
+	void plot(PlotComposite &plot, String name) {
+		PlotBool::addToPlot(plot, name + ".clock", _clkValue);
+		PlotBool::addToPlot(plot, name + ".data", _dtValue);
+	}
 };
 
 template <class T>

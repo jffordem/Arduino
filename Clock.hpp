@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef CLOCK_H
-#define CLOCK_H
+#ifndef CLOCK_HPP
+#define CLOCK_HPP
 
 #include <Scheduler.hpp>
 
