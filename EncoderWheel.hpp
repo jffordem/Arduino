@@ -75,9 +75,9 @@ public:
 		_value(value), _limit(limit) { }
 	void onRisingEdge() {
 		if (_dtValue != _clkValue) {
-			_value = min(_limit, _value + 1);
+			_value = constrain(_value + 1, -_limit, +_limit);
 		} else {
-			_value = max(-_limit, _value - 1);
+			_value = constrain(_value - 1, -_limit, +_limit);
 		}
 	}
 	void onFallingEdge() { }

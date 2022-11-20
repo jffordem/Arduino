@@ -61,7 +61,7 @@ HIDIO.hpp : Scheduler.hpp, Clock.hpp
 Mapper.hpp : Scheduler.hpp
 * Mapper
 * Inverter
-* Clamp
+* Constrain
 
 Led.hpp : Scheduler.hpp, PinIO.hpp, Mapper.hpp
 * DigitalLED

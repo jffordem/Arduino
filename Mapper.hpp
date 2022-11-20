@@ -30,7 +30,7 @@ SOFTWARE.
 /*
 Mapper wraps the map() function in a composable object. See EncoderWheel.h for how it's used.
 Inverter is a controllable inverter. See DigitalLED for how it's used.
-Clamp holds a value to a certain range, but I haven't actually found a use for it yet.
+Constrain holds a value to a certain range, but I haven't actually found a use for it yet.
 */
 
 template <class Tin, class Tout>
@@ -86,16 +86,16 @@ public:
 };
 
 template <class T>
-class Clamp : public Scheduled {
+class Constrain : public Scheduled {
 	const T _min;
 	const T _max;
 	T &_input;
 	T &_output;
 public:
-	Clamp(Schedule &schedule, T &input, T &output, T minVal, T maxVal) :
+	Constrain(Schedule &schedule, T &input, T &output, T minVal, T maxVal) :
 		Scheduled(schedule), _input(input), _output(output), _min(min(minVal, maxVal)), _max(max(minVal, maxVal)) { }
 	void poll() {
-		_output = min(_max, max(_min, _input));
+		_output = constrain(_input, _min, _max);
 	}
 };
 

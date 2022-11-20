@@ -28,6 +28,7 @@ SOFTWARE.
 #ifndef max
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define min(a, b) ((a) < (b) ? (a) : (b))
+#define constrain(x, a, b) (max((a), min((x), (b))))
 #define random(a, b) (0)
 void delay(long ms) { }
 long millis() { return 0; }
@@ -48,6 +49,8 @@ void strcpy(char*, const char*) { }
 #define DEC 1
 class Outputter {
 public:
+	bool available() { }
+	String readString() { }
 	void print(const char*) { }
 	void print(long) { }
 	void print(long,short) {}
@@ -119,8 +122,11 @@ class String {
 public:
 	String() { }
 	String(const char*) { }
+	String substring(int) { }
 	String &operator = (const char*) { return *this; }
+	String operator + (const char*) { }
 	operator const char* () { return NULL; }
+	void trim() { }
 };
 uint16_t SSD1306_WHITE = 0;
 #endif
