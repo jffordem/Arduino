@@ -49,7 +49,7 @@ class DigitalLED : private Inverter, private DigitalWrite {
 public:
 	DigitalLED(Schedule &schedule, bool &value, const LedConfig &config) :
 		DigitalLED(schedule, value, config.pin, config.lowIsOn) { }
-	DigitalLED(Schedule &schedule, bool &value, int pin, bool lowIsOn) : 
+	DigitalLED(Schedule &schedule, bool &value, int pin, bool lowIsOn = false) : 
 		Inverter(schedule, value, _on, lowIsOn),
 		DigitalWrite(schedule, _on, pin) { }
 };

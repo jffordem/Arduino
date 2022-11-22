@@ -46,7 +46,7 @@ void loop() { schedule.poll(); }
 
 class Expires {
 public:
-	virtual bool expired() = 0;
+	virtual bool expired() const = 0;
 	virtual void reset(long time) = 0;
 };
 
@@ -55,14 +55,14 @@ class Timer : public Expires {
 	long _time;
 	long _lastExpired;
 public:
-	Timer(long time = 0) : _time(max(0, time)) {
+	Timer(long time = 0) : _time(constrain(time, 0, MAX_LONG)) {
 		_lastExpired = millis();
 	}
-	bool expired() {
+	bool expired() const {
 		return millis() - _lastExpired > _time;
 	}
 	void reset(long time) {
-		_time = max(0, time);
+		_time = constrain(time, 0, MAX_LONG);
 		_lastExpired = millis();
 	}
 };
@@ -72,7 +72,7 @@ class ExpiresComposite : public Composite<Expires> {
 public:
 	ExpiresComposite(bool any = true, Expires *itemsZ[] = NULL) :
 		Composite<Expires>(itemsZ, countZ(itemsZ)), _any(any) { }
-	bool expired() {
+	bool expired() const {
 		for (int i = 0; i < length(); i++) {
 			if (item(i)->expired() && _any) {
 				return true;
@@ -83,6 +83,22 @@ public:
 		}
 		return !_any;
 	}
+};
+
+class PeriodicBase : private Scheduled, public Enabled, public Timer {
+	bool _enabled = true;
+	long &_period;
+public:
+	PeriodicBase(Schedule &schedule, long &period) : Scheduled(schedule), Timer(period), _period(period) { }
+	void poll() {
+		if (expired() && _enabled) {
+			reset(_period);
+			handleExpired();
+		}
+	}
+	void enable(bool value) { _enabled = value; }
+	void toggle() { enable(!_enabled); }
+	virtual void handleExpired() = 0;
 };
 
 class Clock : private Scheduled, private Timer, public Enabled {
@@ -117,37 +133,17 @@ public:
 };
 
 class SpeedTest : public Scheduled {
-	const static int length = 10;
-	long _times[length];
-	short _data[length];
-	Timer _countdown;
-	short _count;
-	long _last;
+	Timer _oneSecond;
+	uint16_t _count;
 public:
-	SpeedTest(Schedule &schedule, long initialDelay) : Scheduled(schedule), _countdown(initialDelay), _count(-1), _last(-1) { }
-	SpeedTest(Schedule &schedule) : SpeedTest(schedule, 2500) { }
+	SpeedTest(Schedule &schedule) : Scheduled(schedule), _count(0), _oneSecond(1000) { }
 	void poll() {
-		if (_countdown.expired() && _count < length) {
-			long now = millis();
-			if (now == _last) {
-				_data[_count]++;
-			} else {
-				_count++;
-				if (_count < length) {
-					_times[_count] = now;
-					_data[_count] = 1;
-				}
-			}
-			_last = now;
-		}
-		if (_count == length) {
-			_count = length+1;
-			Serial.println("Speed Test:");
-			for (int i = 0; i < length; i++) {
-				Serial.print(_times[i]);
-				Serial.print(": ");
-				Serial.println(_data[i]);
-			}
+		_count++;
+		if (_oneSecond.expired()) {
+			_oneSecond.reset(1000);
+			Serial.print("PollsPerSecond:");
+			Serial.println(_count, DEC);
+			_count = 0;
 		}
 	}
 };

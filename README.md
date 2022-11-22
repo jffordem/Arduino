@@ -84,7 +84,7 @@ the ClockToggleButton.  For example, here's a composition for a "Blinky".
 class Blinky : public Clock, private DigitalLED {
   bool _ledState;
 public:
-  Blinky(MainSchedule &schedule, long &offTime, long &onTime, long offset, int ledPin) :
+  Blinky(MainSchedule &schedule, long &offTime, long &onTime, int ledPin) :
     Clock(schedule, offTime, onTime, offset, _ledState),
     DigitalLED(schedule, _ledState, ledPin) { }
 };

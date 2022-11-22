@@ -80,6 +80,14 @@ public:
 	void onFallingEdge() { _fallingTrigger.fire(); }
 };
 
+class PeriodicTrigger : public PeriodicBase {
+	Trigger &_trigger;
+public:
+	PeriodicTrigger(Schedule &schedule, long &period, Trigger &trigger) :
+		PeriodicBase(schedule, period), _trigger(trigger) { }
+	void handleExpired() { _trigger.fire(); }
+};
+
 /* This won't actually work because the events may come faster than the delay time.
 class DelayValueTrigger : public Trigger, private Scheduled {
 	Timer _timer;

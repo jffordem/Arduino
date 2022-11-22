@@ -130,11 +130,9 @@ public:
 
 template <class T>
 int countZ(const T *itemsZ) {
-    int result = 0;
-    for (int i = 0; itemsZ && itemsZ[i]; i++) {
-        result = i;
-    }
-    return result;
+    int count;
+    for (count = 0; itemsZ && itemsZ[count]; count++);
+    return count;
 }
 
 #else

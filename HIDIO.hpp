@@ -115,15 +115,17 @@ class DummyButton : public Pressable {
 	const char *_name;
 public:
 	DummyButton(const char *name = "BUTTON", bool verbose = false) : _name(name), _verbose(verbose) { }
-	void press() { if (_verbose) { Serial.print(_name); Serial.print(" "); Serial.println("PRESS"); } }
-	void release() { if (_verbose) { Serial.print(_name); Serial.print(" "); Serial.println("RELEASE"); } }
+	void press() { if (_verbose) { printMillis(); Serial.print(_name); Serial.println(" PRESS"); } }
+	void release() { if (_verbose) { printMillis(); Serial.print(_name); Serial.println(" RELEASE"); } }
+private:
+	void printMillis() { Serial.print("["); Serial.print(millis(), DEC); Serial.print("] "); }
 };
 
 /**
  * ButtonController creates a simple clock to drive a mouse or keyboard button.
 */
 class ButtonController : public Clock, private ValuePresser {
-	bool _value;
+	bool _value = LOW;
 public:
 	ButtonController(Schedule &schedule, long &releaseTime, long &pressTime, Pressable &button) :
 		Clock(schedule, releaseTime, pressTime, _value),

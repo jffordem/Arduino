@@ -1,20 +1,17 @@
 #include <Clock.hpp>
+#include <Led.hpp>
 
-const uint8_t ledPin = LED_BUILTIN;
-uint8_t ledState = LOW;
-const long ledDelay = 200;
-Timer ledTimer;
+bool ledState = LOW;
+long ledDelay = 200;
+
+MainSchedule schedule;
+Clock clock(schedule, ledDelay, ledDelay, ledState);
+DigitalLED led(schedule, ledState, LED_BUILTIN);
 
 void setup() {
-    pinMode(ledPin, OUTPUT);
-    ledTimer.reset(ledDelay);
-    digitalWrite(ledPin, ledState);
+    schedule.begin();
 }
 
 void loop() {
-    if (ledTimer.expired()) {
-        ledTimer.reset(ledDelay);
-        ledState = !ledState;
-        digitalWrite(ledPin, ledState);
-    }
+    schedule.poll();
 }

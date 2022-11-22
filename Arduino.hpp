@@ -40,6 +40,7 @@ void noTone(uint8_t) { }
 #define HIGH 1
 #define LOW 0
 #define NULL 0
+#define LED_BUILTIN 1
 void pinMode(int i, int j) { }
 bool digitalRead(int i) { return LOW; }
 void digitalWrite(int i, bool j) { }
@@ -58,6 +59,7 @@ public:
 	void print(bool,short) {}
 	void print(short) { }
 	void println(const char*) { }
+	void println(int,int) {}
 	void println() { }
 	void println(long) { }
 	void println(short) { }
